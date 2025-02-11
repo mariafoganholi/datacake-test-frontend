@@ -17,4 +17,15 @@ export class AppService {
             description: 'purê',
         })
     }
+
+    deleteTodoItem(id: number) {
+        return this.http.delete("http://localhost:8000/todo/api/todo/" + id)
+    }
+
+    editTodoItem(id: number) {
+        return this.http.put("http://localhost:8000/todo/api/todo/" + id, {
+            title: 'cenoura',
+            description: 'cozida',
+        })
+    }
 }

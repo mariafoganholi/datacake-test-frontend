@@ -26,6 +26,21 @@ export class AppComponent {
 
     createTodoItem() {
       this.appService.createTodoItem().subscribe((response) => {
+        this.getTodoList()
+        console.log(response)
+      })
+    }
+
+    deleteTodoItem(id: number) {
+      this.appService.deleteTodoItem(id).subscribe((response) => {
+        this.getTodoList()
+        console.log(response)
+      })
+    }
+
+    editTodoItem(id: number) {
+      this.appService.editTodoItem(id).subscribe((response) => {
+        this.getTodoList()
         console.log(response)
       })
     }
