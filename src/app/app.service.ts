@@ -13,7 +13,6 @@ export class AppService {
 
     createTodoItem() {
         return this.http.post("http://localhost:8000/todo/api/todo", {
-            title: 'batata',
             description: 'purê',
         })
     }
@@ -24,7 +23,6 @@ export class AppService {
 
     editTodoItem(id: number) {
         return this.http.put("http://localhost:8000/todo/api/todo/" + id, {
-            title: 'cenoura',
             description: 'cozida',
         })
     }

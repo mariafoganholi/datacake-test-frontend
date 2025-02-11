@@ -183,7 +183,7 @@
       <h1>Hello, {{ title }}</h1>
       <button (click)="createTodoItem()">Adicionar tarefa</button>
       @for (item of list; track item) {
-        <li>{{ item.id }}. {{ item.title }} {{ item.description }} 
+        <li>{{ item.id }}. {{ item.description }} 
           <button (click)="deleteTodoItem(item.id)">Excluir tarefa</button>
           <button (click)="editTodoItem(item.id)">Editar tarefa</button>
         </li>
