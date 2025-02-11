@@ -11,9 +11,9 @@ export class AppService {
         return this.http.get("http://localhost:8000/todo/api/todo")
     }
 
-    createTodoItem() {
+    createTodoItem(value: string) {
         return this.http.post("http://localhost:8000/todo/api/todo", {
-            description: 'purê',
+            description: value,
         })
     }
 
