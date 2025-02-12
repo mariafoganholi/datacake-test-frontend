@@ -1,5 +1,5 @@
 <head>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="app.component.css">
 </head>
 
 <main class="main">
@@ -14,48 +14,39 @@
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Adicione sua tarefa...</mat-label>
-          <input matInput [formControl]="addFormControl"
-          placeholder=''>
+          <input matInput [formControl]="addFormControl" placeholder=''>
         </mat-form-field>
         <button mat-icon-button (click)="createTodoItem()">
           <mat-icon>add</mat-icon>
         </button>
       </form>
-
       @for (item of list; track item) {
-          <section class="example-section">
-            <span class="example-list-section">
-              <mat-checkbox
-                class="example-margin"
-                [checked]="item.checked"
-                (change)="updateChecked(item.id, $event.checked)"
-              >
-              <form class="example-form">
-                @if (editing === item.id) {
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder='' [formControl]="updateFormControl">
-                    
-                  </mat-form-field>
-                  <button id="buttonedit" mat-icon-button (click)="updateDescription(item.id, updateFormControl.value!)">
-                    <mat-icon>save</mat-icon>
-                  </button>
-                }
-                @else {
-                  <h2>{{item.description}}</h2>
-                  <button id="buttonedit" mat-icon-button (click)="editDescription(item.id)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                }
-
-     
-                <button id="buttondelete" mat-icon-button (click)="deleteTodoItem(item.id)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </form>
-              </mat-checkbox>
-
-            </span>
-          </section>
+        <form class="example-form">
+        <mat-checkbox class="example-margin" [checked]="item.checked" (change)="updateChecked(item.id, $event.checked)">
+        </mat-checkbox>
+        @if (editing === item.id) {
+          <mat-form-field class="example-full-width">
+            <input matInput [formControl]="updateFormControl" placeholder=''>
+          </mat-form-field>
+          <button mat-icon-button (click)="updateDescription(item.id)">
+            <mat-icon>save</mat-icon>
+          </button>
+          <button mat-icon-button (click)="stopEditing()">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        }
+        @else {
+          <mat-form-field class="example-full-width">
+            <input matInput [value]="item.description" disabled>
+          </mat-form-field>
+          <button id="buttonedit" mat-icon-button (click)="startEditing(item.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button id="buttondelete" mat-icon-button (click)="deleteTodoItem(item.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        }
+      </form>
       }
     </div>
   </div>

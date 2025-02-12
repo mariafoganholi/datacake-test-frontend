@@ -9,11 +9,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 // import {ChangeDetectionStrategy, computed, signal} from '@angular/core';
 import {FormControl, FormsModule , ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTableModule} from '@angular/material/table';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, MatButtonModule, ReactiveFormsModule, MatDividerModule, MatIconModule, FormsModule, MatCheckboxModule, MatFormFieldModule, MatInputModule],
+    imports: [RouterOutlet, MatTableModule, MatButtonModule, ReactiveFormsModule, MatDividerModule, MatIconModule, FormsModule, MatCheckboxModule, MatFormFieldModule, MatInputModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,16 +53,27 @@ export class AppComponent {
       })
     }
 
-    updateDescription(id: number, newtext: string) {
-      this.appService.editTodoItem(id, undefined, newtext).subscribe(() => {
+    updateDescription(id: number) {
+      const value = this.updateFormControl.value
+      if (value === null) {
+        return
+      }
+      this.appService.editTodoItem(id, undefined, value).subscribe(() => {
         this.getTodoList()
+        this.stopEditing()
       })
     }
 
-    editDescription(id: number) {
-      this.editing = id
+    startEditing(id: number) {
       const item = this.list.find((i: any) => i.id === id)
+      if (!item) return
+      this.editing = item.id
       this.updateFormControl.setValue(item.description)
+    }
+
+    stopEditing() {
+      this.editing = undefined
+      this.updateFormControl.reset()
     }
 
     updateChecked(id:number, checked: boolean) {
