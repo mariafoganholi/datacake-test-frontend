@@ -21,9 +21,10 @@ export class AppService {
         return this.http.delete("http://localhost:8000/todo/api/todo/" + id)
     }
 
-    editTodoItem(id: number) {
+    editTodoItem(id: number, checkedArg?: boolean, value?: string) {
         return this.http.put("http://localhost:8000/todo/api/todo/" + id, {
-            description: 'cozida',
+            checked: checkedArg,
+            description: value,
         })
     }
 }

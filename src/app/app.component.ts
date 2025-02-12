@@ -22,6 +22,8 @@ export class AppComponent {
     title = 'homes';
     list: any = []
     addFormControl = new FormControl('');
+    updateFormControl = new FormControl('');
+    editing: number | undefined
 
     constructor(private appService: AppService) {
       this.getTodoList()
@@ -38,26 +40,33 @@ export class AppComponent {
       if (value === null) {
         return
       }
-      this.appService.createTodoItem(value).subscribe((response) => {
+      this.appService.createTodoItem(value).subscribe(() => {
         this.getTodoList()
         this.addFormControl.reset()
       })
     }
-    updateChecked(e: any) {
-      console.log(e)
-    }
 
     deleteTodoItem(id: number) {
-      this.appService.deleteTodoItem(id).subscribe((response) => {
+      this.appService.deleteTodoItem(id).subscribe(() => {
         this.getTodoList()
-        console.log(response)
       })
     }
 
-    editTodoItem(id: number) {
-      this.appService.editTodoItem(id).subscribe((response) => {
+    updateDescription(id: number, newtext: string) {
+      this.appService.editTodoItem(id, undefined, newtext).subscribe(() => {
         this.getTodoList()
-        console.log(response)
+      })
+    }
+
+    editDescription(id: number) {
+      this.editing = id
+      const item = this.list.find((i: any) => i.id === id)
+      this.updateFormControl.setValue(item.description)
+    }
+
+    updateChecked(id:number, checked: boolean) {
+      this.appService.editTodoItem(id, checked).subscribe(() => {
+        this.getTodoList()
       })
     }
 
