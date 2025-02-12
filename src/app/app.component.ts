@@ -6,27 +6,29 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
-// import {ChangeDetectionStrategy, computed, signal} from '@angular/core';
 import {FormControl, FormsModule , ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
+import {MatListModule} from '@angular/material/list';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, MatTableModule, MatButtonModule, ReactiveFormsModule, MatDividerModule, MatIconModule, FormsModule, MatCheckboxModule, MatFormFieldModule, MatInputModule],
+    imports: [RouterOutlet, MatTableModule, MatButtonModule, ReactiveFormsModule, MatDividerModule, MatIconModule, FormsModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatListModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-    title = 'homes';
     list: any = []
     addFormControl = new FormControl('');
     updateFormControl = new FormControl('');
     editing: number | undefined
+    displayedColumns: string[] = ['check', 'item', 'actions'];
 
     constructor(private appService: AppService) {
+     }
+
+     ngOnInit() {
       this.getTodoList()
      }
 

@@ -6,49 +6,71 @@
   <title>TO DO LIST</title>
   <link rel="icon" type="image/x-icon" href="icon.ico">
   <div class="content">
-    <div class="left-side">
-      <h1>TO DO LIST</h1>
+    <h1 class="title">TO DO LIST</h1>
 
-      <p></p>
-
-      <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <mat-label>Adicione sua tarefa...</mat-label>
-          <input matInput [formControl]="addFormControl" placeholder=''>
+      <form class="add-form-div" (submit)="createTodoItem()">
+        <mat-form-field  class="add-form">
+          <input 
+            matInput 
+            [formControl]="addFormControl" 
+            required
+            placeholder="Adiciona nova tarefa"
+            
+            >
+          <mat-hint>Digite enter para criar uma nova tarefa</mat-hint>
         </mat-form-field>
+      </form>
+
+
+
+      <!-- <mat-form-field class="add-form">
+        <mat-label>Adicione sua tarefa...</mat-label>
+        <input matInput [formControl]="addFormControl" placeholder=''>
         <button mat-icon-button (click)="createTodoItem()">
           <mat-icon>add</mat-icon>
         </button>
-      </form>
-      @for (item of list; track item) {
-        <form class="example-form">
-        <mat-checkbox class="example-margin" [checked]="item.checked" (change)="updateChecked(item.id, $event.checked)">
-        </mat-checkbox>
-        @if (editing === item.id) {
-          <mat-form-field class="example-full-width">
-            <input matInput [formControl]="updateFormControl" placeholder=''>
-          </mat-form-field>
-          <button mat-icon-button (click)="updateDescription(item.id)">
-            <mat-icon>save</mat-icon>
-          </button>
-          <button mat-icon-button (click)="stopEditing()">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        }
-        @else {
-          <mat-form-field class="example-full-width">
-            <input matInput [value]="item.description" disabled>
-          </mat-form-field>
-          <button id="buttonedit" mat-icon-button (click)="startEditing(item.id)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button id="buttondelete" mat-icon-button (click)="deleteTodoItem(item.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        }
-      </form>
-      }
-    </div>
+      </mat-form-field> -->
+
+    <table mat-table [dataSource]="list" class="mat-elevation-z8">
+      <ng-container matColumnDef="check">
+        <td mat-cell *matCellDef="let element"> 
+          <mat-checkbox [checked]="element.checked"
+            (change)="updateChecked(element.id, $event.checked)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="item" >
+        <td mat-cell *matCellDef="let element" id="item-column"> 
+          @if (editing === element.id) {
+            <input matInput [formControl]="updateFormControl" placeholder='' class="form-input">
+          }
+          @else {
+            <p [class.taskComplete]="element.checked"> {{element.description}} </p>
+          }
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <td mat-cell *matCellDef="let element">
+          @if (editing === element.id) {
+            <button mat-icon-button (click)="updateDescription(element.id)">
+              <mat-icon>save</mat-icon>
+            </button>
+            <button mat-icon-button (click)="stopEditing()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          }
+          @else {
+            <button mat-icon-button (click)="startEditing(element.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteTodoItem(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
+        </td>
+      </ng-container>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
 </main>
 
