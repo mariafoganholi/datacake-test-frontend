@@ -1,13 +1,11 @@
 <head>
   <link rel="stylesheet" href="app.component.css">
 </head>
-
 <main class="main">
   <title>TO DO LIST</title>
   <link rel="icon" type="image/x-icon" href="icon.ico">
   <div class="content">
     <h1 class="title">TO DO LIST</h1>
-
       <form class="add-form-div" (submit)="createTodoItem()">
         <mat-form-field  class="add-form">
           <input 
@@ -15,22 +13,10 @@
             [formControl]="addFormControl" 
             required
             placeholder="Adiciona nova tarefa"
-            
             >
           <mat-hint>Digite enter para criar uma nova tarefa</mat-hint>
         </mat-form-field>
       </form>
-
-
-
-      <!-- <mat-form-field class="add-form">
-        <mat-label>Adicione sua tarefa...</mat-label>
-        <input matInput [formControl]="addFormControl" placeholder=''>
-        <button mat-icon-button (click)="createTodoItem()">
-          <mat-icon>add</mat-icon>
-        </button>
-      </mat-form-field> -->
-
     <table mat-table [dataSource]="list" class="mat-elevation-z8">
       <ng-container matColumnDef="check">
         <td mat-cell *matCellDef="let element"> 
@@ -73,6 +59,4 @@
     </table>
   </div>
 </main>
-
-
 <router-outlet />
