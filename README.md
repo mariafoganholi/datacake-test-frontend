@@ -5,6 +5,8 @@ Lista de tarefas implementada em Angular 17 comunicando-se com uma [API](https:/
 - remoção
 - marcar tarefa como completa
 
+![image](https://github.com/user-attachments/assets/2c141ea1-f609-4a75-9ae6-088f6b5730de)
+
 ## Dependências
 - Node 22
 - NPM
