@@ -23,3 +23,5 @@ npm install
 ```
 npm run start
 ```
+
+A aplicação estará pronta no endereço [localhost:4200](http://localhost:4200)
